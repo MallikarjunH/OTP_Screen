@@ -23,6 +23,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         addBottomBorderColor(textField: textOTP2)
         addBottomBorderColor(textField: textOTP3)
         addBottomBorderColor(textField: textOTP4)
+        
+        textOTP1.becomeFirstResponder()
     }
 
     func addBottomBorderColor(textField: UITextField){
@@ -35,7 +37,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if ((textField.text!.count < 1) && (textField.text!.count > 1)){
+        if ((textField.text!.count < 1) && (string.count > 0)){
             
             if textField == textOTP1{
                 textOTP2.becomeFirstResponder()
@@ -57,8 +59,30 @@ class ViewController: UIViewController, UITextFieldDelegate{
             
             return false
         }
-        else if ((textField.text!.count > 1) && (textField.text!.count == 0)){
+        else if ((textField.text!.count >= 1) && (string.count == 0)){
             
+            if textField == textOTP2{
+                textOTP1.resignFirstResponder()
+            }
+            
+            if textField == textOTP3{
+                textOTP2.resignFirstResponder()
+            }
+            
+            if textField == textOTP4{
+                textOTP3.resignFirstResponder()
+            }
+            
+            if textField == textOTP1{
+                textOTP1.resignFirstResponder()
+            }
+            
+            textField.text = ""
+            return false
+        }
+        else if (textField.text!.count) >= 0{
+            textField.text = string
+            return false
         }
         return true
     }
