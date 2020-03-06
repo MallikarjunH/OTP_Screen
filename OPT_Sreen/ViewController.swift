@@ -15,6 +15,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var textOTP3: UITextField!
     @IBOutlet weak var textOTP4: UITextField!
     
+    var otpValue1 = ""
+    var otpValue2 = ""
+    var otpValue3 = ""
+    var otpValue4 = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -37,21 +42,26 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if ((textField.text!.count < 1) && (string.count > 0)){
+        if ((textField.text!.count < 1) && (string.count > 0)){ //Entering first and moving next TextField
+            
             
             if textField == textOTP1{
+                otpValue1 = textField.text ?? ""
                 textOTP2.becomeFirstResponder()
             }
             
             if textField == textOTP2{
+                otpValue2 = textField.text ?? ""
                 textOTP3.becomeFirstResponder()
             }
             
             if textField == textOTP3{
+                otpValue3 = textField.text ?? ""
                 textOTP4.becomeFirstResponder()
             }
             
             if textField == textOTP4{
+                otpValue4 = textField.text ?? ""
                 textOTP4.resignFirstResponder()
             }
             
@@ -59,28 +69,49 @@ class ViewController: UIViewController, UITextFieldDelegate{
             
             return false
         }
-        else if ((textField.text!.count >= 1) && (string.count == 0)){
+        else if ((textField.text!.count >= 1) && (string.count == 0)){ // removing/deleteing
+            
+            if textField == textOTP1{
+                otpValue1 = textField.text ?? ""
+                textOTP1.resignFirstResponder()
+            }
             
             if textField == textOTP2{
-                textOTP1.resignFirstResponder()
+                otpValue2 = textField.text ?? ""
+                textOTP1.becomeFirstResponder()
             }
             
             if textField == textOTP3{
-                textOTP2.resignFirstResponder()
+                otpValue3 = textField.text ?? ""
+                textOTP2.becomeFirstResponder()
             }
             
             if textField == textOTP4{
-                textOTP3.resignFirstResponder()
-            }
-            
-            if textField == textOTP1{
-                textOTP1.resignFirstResponder()
+                otpValue4 = textField.text ?? ""
+                textOTP3.becomeFirstResponder()
             }
             
             textField.text = ""
             return false
         }
-        else if (textField.text!.count) >= 0{
+        else if (textField.text!.count) >= 1{ // After changing value (Already entered but changing again)
+            
+            if textField == textOTP1{
+                otpValue1 = textField.text ?? ""
+            }
+            
+            if textField == textOTP2{
+                otpValue2 = textField.text ?? ""
+            }
+            
+            if textField == textOTP3{
+                otpValue3 = textField.text ?? ""
+            }
+            
+            if textField == textOTP4{
+                otpValue4 = textField.text ?? ""
+            }
+            
             textField.text = string
             return false
         }
