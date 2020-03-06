@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate{
-
+    
     @IBOutlet weak var textOTP1: UITextField!
     @IBOutlet weak var textOTP2: UITextField!
     @IBOutlet weak var textOTP3: UITextField!
@@ -31,7 +31,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
         textOTP1.becomeFirstResponder()
     }
-
+    
+    //MARK: Custom Code to adding border color at bottom of textField
     func addBottomBorderColor(textField: UITextField){
         
         let layer = CALayer()
@@ -40,28 +41,29 @@ class ViewController: UIViewController, UITextFieldDelegate{
         textField.layer.addSublayer(layer)
     }
     
+    //MARK: TextField Delegate Method
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if ((textField.text!.count < 1) && (string.count > 0)){ //Entering first and moving next TextField
             
             
             if textField == textOTP1{
-                otpValue1 = textField.text ?? ""
+                otpValue1 = string
                 textOTP2.becomeFirstResponder()
             }
             
             if textField == textOTP2{
-                otpValue2 = textField.text ?? ""
+                otpValue2 = string
                 textOTP3.becomeFirstResponder()
             }
             
             if textField == textOTP3{
-                otpValue3 = textField.text ?? ""
+                otpValue3 = string
                 textOTP4.becomeFirstResponder()
             }
             
             if textField == textOTP4{
-                otpValue4 = textField.text ?? ""
+                otpValue4 = string
                 textOTP4.resignFirstResponder()
             }
             
@@ -72,22 +74,22 @@ class ViewController: UIViewController, UITextFieldDelegate{
         else if ((textField.text!.count >= 1) && (string.count == 0)){ // removing/deleteing
             
             if textField == textOTP1{
-                otpValue1 = textField.text ?? ""
+                otpValue1 = string
                 textOTP1.resignFirstResponder()
             }
             
             if textField == textOTP2{
-                otpValue2 = textField.text ?? ""
+                otpValue2 = string
                 textOTP1.becomeFirstResponder()
             }
             
             if textField == textOTP3{
-                otpValue3 = textField.text ?? ""
+                otpValue3 = string
                 textOTP2.becomeFirstResponder()
             }
             
             if textField == textOTP4{
-                otpValue4 = textField.text ?? ""
+                otpValue4 = string
                 textOTP3.becomeFirstResponder()
             }
             
@@ -97,19 +99,19 @@ class ViewController: UIViewController, UITextFieldDelegate{
         else if (textField.text!.count) >= 1{ // After changing value (Already entered but changing again)
             
             if textField == textOTP1{
-                otpValue1 = textField.text ?? ""
+                otpValue1 = string
             }
             
             if textField == textOTP2{
-                otpValue2 = textField.text ?? ""
+                otpValue2 = string
             }
             
             if textField == textOTP3{
-                otpValue3 = textField.text ?? ""
+                otpValue3 = string
             }
             
             if textField == textOTP4{
-                otpValue4 = textField.text ?? ""
+                otpValue4 = string
             }
             
             textField.text = string
@@ -117,6 +119,38 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
         return true
     }
-
+    
+    
+    //MARK: Submit Button Clicked
+    @IBAction func submitOtpClicked(_ sender: Any) {
+        textOTP1.resignFirstResponder()
+        textOTP2.resignFirstResponder()
+        textOTP3.resignFirstResponder()
+        textOTP4.resignFirstResponder()
+        
+        if otpValue1 == "" &&  otpValue2 == "" && otpValue3 == "" && otpValue4 == "" {
+            
+            let alert =  self.showAlert(msg: "Enter the OTP, It should not be empty", title: "Oops..")
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        else if otpValue1 == "" || otpValue2 == "" || otpValue3 == ""  || otpValue4 == "" {
+            let alert =  self.showAlert(msg: "Please Enter the valid 4 digit OTP", title: "Error")
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            
+            //do your another work // API Call
+        }
+    }
+    
+    //MARK: Show Alert Function
+    func showAlert(msg:String, title: String) -> UIAlertController{
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        return alert
+        //self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
