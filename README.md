@@ -1,3 +1,4 @@
 Here is the final screen after running the project.
 
-![Screenshot 2020-03-06 at 12 01 48 PM](https://user-images.githubusercontent.com/27955299/76058668-0c5dc000-5fa3-11ea-9083-38c1710c5ff7.png)
+
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/60605347/78451297-5f11c100-76a2-11ea-87ca-e9df84cb3e81.gif)
